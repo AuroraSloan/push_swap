@@ -79,5 +79,8 @@ size_t		ft_find_char(const char *s, int c);
 int			err_free1(char *s1);
 int			err_free2(char *s1, char *s2);
 void		ft_free(void *ptr);
+void		ft_putchar(char c);
+void		ft_putendl(char *s);
+void		ft_putstr(char *s);
 
 #endif

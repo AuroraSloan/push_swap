@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstprint_int.c                                  :+:      :+:    :+:   */
+/*   ft_putstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/28 21:46:44 by jthompso          #+#    #+#             */
-/*   Updated: 2021/06/02 16:47:12 by jthompso         ###   ########.fr       */
+/*   Created: 2021/06/02 15:39:45 by jthompso          #+#    #+#             */
+/*   Updated: 2021/06/02 15:40:06 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstprint_int(void *n)
+void	ft_putstr(char *s)
 {
-	ft_putnbr(*(int *)n);
+	if (!s)
+		return ;
+	while (*s)
+		ft_putchar(*s++);
 }

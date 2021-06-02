@@ -9,7 +9,7 @@ SRCS = ft_strlcpy.c ft_strlen.c ft_putnbr_fd.c ft_putendl_fd.c ft_putstr_fd.c \
 	ft_lstlast.c ft_lstsize.c ft_lstadd_front.c ft_lstmap.c ft_lstiter.c \
 	ft_lstclear.c ft_lstdelone.c ft_lstnew.c ft_isspace.c ft_numlen.c \
 	ft_putnbr.c get_next_line.c get_next_line_utils.c ft_find_char.c ft_free.c \
-	ft_lstprint.c ft_lstprint_int.c
+	ft_lstprint.c ft_lstprint_int.c ft_putchar.c ft_putendl.c ft_putstr.c
 OBJS = $(SRCS:.c=.o)
 CC = gcc 
 CFLAGS = -Wall -Werror -Wextra
