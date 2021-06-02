@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*  main.c                                               :+:      :+:    :+:  */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 18:43:58 by jthompso          #+#    #+#             */
-/*   Updated: 2021/06/02 22:32:52 by jthompso         ###   ########.fr       */
+/*  Updated: 2021/06/02 16:44:46 by jthompso           ###   ########.fr      */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,17 +222,20 @@ int	main(int argc, char **argv)
 	data_size = sizeof(int);
 	if (argc > 501) //change later if argc > limit
 		failed_exit("Error");
-	while (i < argc)
+	if (argc > 1)
 	{
-		overflow_check(ft_atoi(argv[1]), argv[1], stack_a);
-		num = ft_atoi(argv[i++]);
-		ft_lstadd_back(&stack_a, ft_lstnew(&num, data_size));
+		while (i < argc)
+		{	
+			overflow_check(ft_atoi(argv[1]), argv[1], stack_a);
+			num = ft_atoi(argv[i++]);
+			ft_lstadd_back(&stack_a, ft_lstnew(&num, data_size));
+		}
+		duplicate_check(stack_a);
+		if (argc > 2)
+			push_swap(argc, &stack_a, stack_a);
+		ft_lstprint(stack_a, ft_lstprint_int);
+		ft_lstclear(&stack_a, ft_free);
 	}
-	duplicate_check(stack_a);	
-	if (argc > 2)
-		push_swap(argc, &stack_a, stack_a);
-	ft_lstprint(stack_a, ft_lstprint_int);
-	ft_lstclear(&stack_a, ft_free);
-	system("leaks push_swap");
+	//system("leaks push_swap");
 	exit(EXIT_SUCCESS);
 }

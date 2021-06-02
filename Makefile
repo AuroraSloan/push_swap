@@ -24,8 +24,8 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	make -C libft
-	$(CC) $(CFLAGS) $(INCS) $(LIBS) $(OBJS) -o $(NAME)
-
+	#$(CC) $(CFLAGS) $(INCS) $(LIBS) $(OBJS) -o $(NAME)
+	$(CC) -o $(NAME) $(OBJS) $(LIBS) $(INCS) 
 clean:
 	rm $(OBJS)
 	make clean -C libft
