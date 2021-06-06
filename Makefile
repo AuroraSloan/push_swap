@@ -6,7 +6,7 @@
 #    By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/27 18:46:49 by jthompso          #+#    #+#              #
-#    Updated: 2021/05/27 19:05:51 by jthompso         ###   ########.fr        #
+#    Updated: 2021/06/03 14:16:15 by jthompso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	make -C libft
 	#$(CC) $(CFLAGS) $(INCS) $(LIBS) $(OBJS) -o $(NAME)
-	$(CC) -o $(NAME) $(OBJS) $(LIBS) $(INCS) 
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INCS) 
 clean:
 	rm $(OBJS)
 	make clean -C libft
