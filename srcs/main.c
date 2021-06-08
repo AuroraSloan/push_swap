@@ -302,12 +302,16 @@ void	push_swap_large(t_list **head)
 	stack_b = NULL;
 	init_list_max(stack_a, &int_data);
 	stack_a = push_min_max(head, &stack_b, int_data);
-	while (!lst_sorted(stack_a))
+	*head = ft_push(&stack_a, &stack_b, "pb");
+	if (*(int *)stack_b->content < *(int *)stack_b->next->content)
+		stack_b = ft_swap(stack_b, "sb");	
+	while (ft_lstsize(stack_a))
 	{
-		stack_a = ft_push(&stack_a, &stack_b, "pb");
+		*head = ft_push(&stack_a, &stack_b, "pb");
 		if (*(int *)stack_b->content < *(int *)stack_b->next->content)
 			stack_b = ft_swap(stack_b, "sb");	
-		while (*(int *)stack_b->content < *(int *)stack_b->next->content)
+		while (*(int *)stack_b->next->content < *(int *)stack_b->next->next->content
+				&& *(int *)stack_b->next->next->content != int_data.data)
 		{	
 			stack_b = ft_rotate(&stack_b, "rb");
 			stack_b = ft_swap(stack_b, "sb");
@@ -315,12 +319,8 @@ void	push_swap_large(t_list **head)
 		while (*(int *)stack_b->content != int_data.data)
 			stack_b = ft_rev_rotate(&stack_b, "rrb");	
 	}
-	ft_lstprint(*head, ft_lstprint_int);	
-	ft_putchar('\n');
-	ft_lstprint(stack_b, ft_lstprint_int);	
-	ft_putchar('\n');
-//	while (ft_lstsize(stack_b))
-//		ft_push(&stack_b, head, "pa");
+	while (ft_lstsize(stack_b))
+		ft_push(&stack_b, head, "pa");
 
 }
 
@@ -362,9 +362,9 @@ int	main(int argc, char **argv)
 		if (argc > 2 && !lst_sorted(stack_a))
 			push_swap(argc, &stack_a);
 //		ft_lstprint(stack_a, ft_lstprint_int);
-		ft_putchar('\n');
+//		ft_putchar('\n');
 		ft_lstclear(&stack_a, ft_free);
 	}
-	system("leaks push_swap");
+//	system("leaks push_swap");
 	exit(EXIT_SUCCESS);
 }
