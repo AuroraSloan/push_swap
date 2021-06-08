@@ -297,19 +297,19 @@ void	push_swap_large(t_list **head)
 	t_list		*stack_a;
 	t_list		*stack_b;
 	t_int_data	int_data;
-	
+
 	stack_a = *head;
 	stack_b = NULL;
 	init_list_max(stack_a, &int_data);
 	stack_a = push_min_max(head, &stack_b, int_data);
 	*head = ft_push(&stack_a, &stack_b, "pb");
 	if (*(int *)stack_b->content < *(int *)stack_b->next->content)
-		stack_b = ft_swap(stack_b, "sb");	
+		stack_b = ft_swap(stack_b, "sb");
 	while (ft_lstsize(stack_a))
 	{
 		*head = ft_push(&stack_a, &stack_b, "pb");
 		if (*(int *)stack_b->content < *(int *)stack_b->next->content)
-			stack_b = ft_swap(stack_b, "sb");	
+			stack_b = ft_swap(stack_b, "sb");
 		while (*(int *)stack_b->next->content < *(int *)stack_b->next->next->content
 				&& *(int *)stack_b->next->next->content != int_data.data)
 		{	
@@ -321,19 +321,18 @@ void	push_swap_large(t_list **head)
 	}
 	while (ft_lstsize(stack_b))
 		ft_push(&stack_b, head, "pa");
-
 }
 
-void	push_swap(int argc, t_list **head)
+void	push_swap(int lst_size, t_list **head)
 {
 	t_list	*stack_a;
 
 	stack_a = *head;
-	if (argc == 3 && *(int *)stack_a->content > *(int *)stack_a->next->content)
+	if (lst_size == 2 && *(int *)stack_a->content > *(int *)stack_a->next->content)
 		ft_swap(stack_a, "sa");
-	else if (argc == 4)
+	else if (lst_size == 3)
 		push_swap_three(head);
-	else if (argc == 5 || argc == 6)
+	else if (lst_size == 4 || lst_size == 5)
 		push_swap_small(head);
 	else
 		push_swap_large(head);	
@@ -345,26 +344,39 @@ int	main(int argc, char **argv)
 	int				num;
 	t_list			*stack_a;
 	unsigned int	data_size;
+	int				flag;
 
 	i = 1;
+	flag = 0;
 	data_size = sizeof(int);
 	if (argc > 501) //change later if argc > limit
 		failed_exit("Error");
-	if (argc > 1)
+	if (argc == 2 && ft_strchr(argv[i], ' '))
 	{
-		while (i < argc)
-		{	
-			overflow_check(ft_atoi(argv[1]), argv[1], stack_a);
-			num = ft_atoi(argv[i++]);
+		argv = ft_split(argv[1], ' ');
+		i = 0;
+		flag++;	
+	}
+	if (argc > 1)
+	{	
+		while (argv[i])
+		{
+			overflow_check(ft_atoi(argv[i]), argv[i], stack_a);
+			num = ft_atoi(argv[i]);
+			if (flag)
+				ft_free(argv[i]);
+			i++;
 			ft_lstadd_back(&stack_a, ft_lstnew(&num, data_size));
 		}
+		if (flag)
+			ft_free(argv);
 		duplicate_check(stack_a);
-		if (argc > 2 && !lst_sorted(stack_a))
-			push_swap(argc, &stack_a);
+		if (ft_lstsize(stack_a) > 1 && !lst_sorted(stack_a))
+			push_swap(ft_lstsize(stack_a), &stack_a);
 //		ft_lstprint(stack_a, ft_lstprint_int);
 //		ft_putchar('\n');
 		ft_lstclear(&stack_a, ft_free);
 	}
-//	system("leaks push_swap");
+	system("leaks push_swap");
 	exit(EXIT_SUCCESS);
 }
