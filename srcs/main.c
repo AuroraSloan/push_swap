@@ -292,7 +292,7 @@ void	push_swap_small(t_list **head)
 		ft_push(&stack_b, head, "pa");
 }
 
-void	push_swap_large(t_list **head)
+/*void	push_swap_large(t_list **head)
 {
 	t_list		*stack_a;
 	t_list		*stack_b;
@@ -321,7 +321,57 @@ void	push_swap_large(t_list **head)
 	}
 	while (ft_lstsize(stack_b))
 		ft_push(&stack_b, head, "pa");
+}*/
+
+void	push_swap_large(t_list **head)
+{
+	t_list		*stack_a;
+	t_list		*stack_b;
+	t_int_data	max_data;
+	t_int_data	min_data;
+
+	stack_a = *head;
+	stack_b = NULL;
+	init_list_max(stack_a, &max_data);
+	init_list_min(stack_a, &min_data);	
+	stack_a = push_min_max(head, &stack_b, min_data);
+	stack_a = push_min_max(head, &stack_b, max_data);	
+	*head = ft_push(&stack_a, &stack_b, "pb");
+	stack_b = ft_swap(stack_b, "sb");
+	while (ft_lstsize(stack_a))
+	{
+		if (*(int *)stack_b->content > *(int *)stack_a->content)
+		{
+			//&& *(int *)ft_lstlast(stack_b)->content != max_data.data)
+			while (ft_lstsize(stack_a) && *(int *)stack_b->content > *(int *)stack_a->content)
+				stack_b = ft_rotate(&stack_b, "rb");
+			*head = ft_push(&stack_a, &stack_b, "pb");
+		}
+		if (ft_lstsize(stack_a) && *(int *)stack_b->content < *(int *)stack_a->content)
+		{
+			//&& *(int *)ft_lstlast(stack_b)->content != min_data.data)
+			while (ft_lstsize(stack_a) && *(int *)stack_b->content < *(int *)stack_a->content) 
+				stack_b = ft_rev_rotate(&stack_b, "rrb");
+			*head = ft_push(&stack_a, &stack_b, "pb");
+			stack_b = ft_swap(stack_b, "sb");
+		}
+	}
+	init_list_max(stack_b, &max_data);
+	if (max_data.loc < ft_lstsize(stack_b) / 2)
+	{
+		while (*(int *)stack_b->content != max_data.data)
+			stack_b = ft_rev_rotate(&stack_b, "rrb");
+	}
+	else
+	{
+		while (*(int *)stack_b->content != max_data.data)
+			stack_b = ft_rotate(&stack_b, "rb");
+	}
+	while (ft_lstsize(stack_b))
+		ft_push(&stack_b, head, "pa");
+	ft_lstprint(*head, ft_lstprint_int);
 }
+
 
 void	push_swap(int lst_size, t_list **head)
 {

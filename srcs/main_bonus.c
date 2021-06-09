@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:32:31 by jthompso          #+#    #+#             */
-/*   Updated: 2021/06/09 18:20:46 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/06/10 00:04:35 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,5 @@ int	main(int argc, char **argv)
 			checker(&stack_a);
 	}
 	ft_lstclear(&stack_a, ft_free);
-	system("leaks checker");
 	exit(EXIT_SUCCESS);
 }
