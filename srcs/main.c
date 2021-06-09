@@ -311,13 +311,13 @@ void	push_swap_large(t_list **head)
 		if (*(int *)stack_b->content < *(int *)stack_b->next->content)
 			stack_b = ft_swap(stack_b, "sb");
 		while (*(int *)stack_b->next->content < *(int *)stack_b->next->next->content
-				&& *(int *)stack_b->next->next->content != int_data.data)
+			&& *(int *)stack_b->next->next->content != int_data.data)
 		{	
 			stack_b = ft_rotate(&stack_b, "rb");
 			stack_b = ft_swap(stack_b, "sb");
 		}
 		while (*(int *)stack_b->content != int_data.data)
-			stack_b = ft_rev_rotate(&stack_b, "rrb");	
+			stack_b = ft_rev_rotate(&stack_b, "rrb");
 	}
 	while (ft_lstsize(stack_b))
 		ft_push(&stack_b, head, "pa");
@@ -328,55 +328,57 @@ void	push_swap(int lst_size, t_list **head)
 	t_list	*stack_a;
 
 	stack_a = *head;
-	if (lst_size == 2 && *(int *)stack_a->content > *(int *)stack_a->next->content)
+	if (lst_size == 2 && *(int *)stack_a->content
+		> *(int *)stack_a->next->content)
 		ft_swap(stack_a, "sa");
 	else if (lst_size == 3)
 		push_swap_three(head);
 	else if (lst_size == 4 || lst_size == 5)
 		push_swap_small(head);
 	else
-		push_swap_large(head);	
+		push_swap_large(head);
+}
+
+void	create_list(t_list **head, int i, int flag, char **argv)
+{
+	int		num;
+
+	while (argv[i])
+	{
+		overflow_check(ft_atoi(argv[i]), argv[i], *head);
+		num = ft_atoi(argv[i]);
+		if (flag)
+			ft_free(argv[i]);
+		i++;
+		ft_lstadd_back(head, ft_lstnew(&num, sizeof(int)));
+	}
+	if (flag)
+		ft_free(argv);
+	duplicate_check(*head);
 }
 
 int	main(int argc, char **argv)
 {
 	int				i;
-	int				num;
 	t_list			*stack_a;
-	unsigned int	data_size;
 	int				flag;
 
 	i = 1;
 	flag = 0;
-	data_size = sizeof(int);
 	if (argc > 501) //change later if argc > limit
 		failed_exit("Error");
 	if (argc == 2 && ft_strchr(argv[i], ' '))
 	{
 		argv = ft_split(argv[1], ' ');
 		i = 0;
-		flag++;	
+		flag++;
 	}
 	if (argc > 1)
-	{	
-		while (argv[i])
-		{
-			overflow_check(ft_atoi(argv[i]), argv[i], stack_a);
-			num = ft_atoi(argv[i]);
-			if (flag)
-				ft_free(argv[i]);
-			i++;
-			ft_lstadd_back(&stack_a, ft_lstnew(&num, data_size));
-		}
-		if (flag)
-			ft_free(argv);
-		duplicate_check(stack_a);
+	{
+		create_list(&stack_a, i, flag, argv);
 		if (ft_lstsize(stack_a) > 1 && !lst_sorted(stack_a))
 			push_swap(ft_lstsize(stack_a), &stack_a);
-//		ft_lstprint(stack_a, ft_lstprint_int);
-//		ft_putchar('\n');
 		ft_lstclear(&stack_a, ft_free);
 	}
-	system("leaks push_swap");
 	exit(EXIT_SUCCESS);
 }
