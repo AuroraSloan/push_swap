@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:32:31 by jthompso          #+#    #+#             */
-/*   Updated: 2021/06/10 00:04:35 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/06/13 18:27:15 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ t_list	*ft_swap(t_list *lst)
 	return (lst);
 }
 
+void	swap_both(t_list **stack_a, t_list **stack_b)
+{
+	ft_swap(*stack_a);
+	ft_swap(*stack_b);
+}
+
 t_list	*ft_rotate(t_list **head)
 {
 	t_list	*old_head;
@@ -55,6 +61,12 @@ t_list	*ft_rotate(t_list **head)
 	old_head->next = NULL;
 	new_head->next = old_head;
 	return (*head);
+}
+
+void	rotate_both(t_list **stack_a, t_list  **stack_b)
+{
+	ft_rotate(stack_a);
+	ft_rotate(stack_b);
 }
 
 t_list	*ft_rev_rotate(t_list **head)
@@ -72,6 +84,13 @@ t_list	*ft_rev_rotate(t_list **head)
 	new_head->next = *head;
 	*head = new_head;
 	return (*head);
+}
+
+t_list	*rev_rotate_both(t_list **stack_a, t_list **stack_b)
+{
+	*stack_a = ft_rev_rotate(stack_a);
+	*stack_b = ft_rev_rotate(stack_b);
+	return (*stack_a);
 }
 
 t_list	*ft_push(t_list **src, t_list **dest)
@@ -163,22 +182,28 @@ void	create_list(t_list **head, int i, int flag, char **argv)
 
 void	emplement_operation(t_list **stack_a, t_list **stack_b, char *line)
 {
-	if (ft_strncmp("sa", line, ft_strlen(line)) == 0)
+	if (ft_strncmp("rr", line, ft_strlen(line)) == 0)
+		rotate_both(stack_a, stack_b);
+	else if (ft_strncmp("ss", line, ft_strlen(line)) == 0)
+		swap_both(stack_a, stack_b);
+	else if (ft_strncmp("sa", line, ft_strlen(line)) == 0)
 		ft_swap(*stack_a);
-	if (ft_strncmp("sb", line, ft_strlen(line)) == 0)
+	else if (ft_strncmp("sb", line, ft_strlen(line)) == 0)
 		ft_swap(*stack_b);
-	if (ft_strncmp("ra", line, ft_strlen(line)) == 0)
+	else if (ft_strncmp("ra", line, ft_strlen(line)) == 0)
 		ft_rotate(stack_a);
-	if (ft_strncmp("rb", line, ft_strlen(line)) == 0)
+	else if (ft_strncmp("rb", line, ft_strlen(line)) == 0)
 		ft_rotate(stack_b);
-	if (ft_strncmp("rra", line, ft_strlen(line)) == 0)
-		ft_rev_rotate(stack_a);
-	if (ft_strncmp("rrb", line, ft_strlen(line)) == 0)
-		ft_rev_rotate(stack_b);
-	if (ft_strncmp("pb", line, ft_strlen(line)) == 0)
+	else if (ft_strncmp("pb", line, ft_strlen(line)) == 0)
 		ft_push(stack_a, stack_b);
-	if (ft_strncmp("pa", line, ft_strlen(line)) == 0)
+	else if (ft_strncmp("pa", line, ft_strlen(line)) == 0)
 		ft_push(stack_b, stack_a);
+	else if (ft_strncmp("rrr", line, ft_strlen(line)) == 0)
+		rev_rotate_both(stack_a, stack_b);
+	else if (ft_strncmp("rra", line, ft_strlen(line)) == 0)
+		ft_rev_rotate(stack_a);
+	else if (ft_strncmp("rrb", line, ft_strlen(line)) == 0)
+		ft_rev_rotate(stack_b);
 }
 
 void	checker(t_list **head)
@@ -194,9 +219,8 @@ void	checker(t_list **head)
 	{
 		ret = get_next_line(0, &line);
 		if (!ret)
-			break ;
+			break ;	
 		emplement_operation(head, &stack_b, line);
-		ft_free(line);
 	}
 	if (lst_sorted(*head))
 		ft_putendl("OK");
