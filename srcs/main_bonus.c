@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:32:31 by jthompso          #+#    #+#             */
-/*   Updated: 2021/06/13 18:27:15 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/06/20 13:07:03 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_list	*ft_lstpop(t_list **head)
 	return (pop);
 }
 
-t_list	*ft_swap(t_list *lst)
+t_list	*ft_swap(t_list *lst, char *operation)
 {
 	t_list	tmp;
 
@@ -39,16 +39,20 @@ t_list	*ft_swap(t_list *lst)
 	tmp.content = lst->next->content;
 	lst->next->content = lst->content;
 	lst->content = tmp.content;
+	if (operation)
+		ft_putendl(operation);
 	return (lst);
 }
 
-void	swap_both(t_list **stack_a, t_list **stack_b)
+void	swap_both(t_list **stack_a, t_list **stack_b, char *operation)
 {
-	ft_swap(*stack_a);
-	ft_swap(*stack_b);
+	ft_swap(*stack_a, NULL);
+	ft_swap(*stack_b, NULL);
+	if (operation)
+		ft_putendl(operation);
 }
 
-t_list	*ft_rotate(t_list **head)
+t_list	*ft_rotate(t_list **head, char *operation)
 {
 	t_list	*old_head;
 	t_list	*new_head;
@@ -60,16 +64,20 @@ t_list	*ft_rotate(t_list **head)
 	*head = old_head->next;
 	old_head->next = NULL;
 	new_head->next = old_head;
+	if (operation)
+		ft_putendl(operation);
 	return (*head);
 }
 
-void	rotate_both(t_list **stack_a, t_list  **stack_b)
+void	rotate_both(t_list **stack_a, t_list  **stack_b, char *operation)
 {
-	ft_rotate(stack_a);
-	ft_rotate(stack_b);
+	ft_rotate(stack_a, NULL);
+	ft_rotate(stack_b, NULL);
+	if (operation)
+		ft_putendl(operation);
 }
 
-t_list	*ft_rev_rotate(t_list **head)
+t_list	*ft_rev_rotate(t_list **head, char *operation)
 {
 	t_list	*new_head;
 	t_list	*new_end;
@@ -83,17 +91,20 @@ t_list	*ft_rev_rotate(t_list **head)
 	new_end->next = NULL;
 	new_head->next = *head;
 	*head = new_head;
+	if (operation)
+		ft_putendl(operation);
 	return (*head);
 }
 
-t_list	*rev_rotate_both(t_list **stack_a, t_list **stack_b)
+void	rev_rotate_both(t_list **stack_a, t_list **stack_b, char *operation)
 {
-	*stack_a = ft_rev_rotate(stack_a);
-	*stack_b = ft_rev_rotate(stack_b);
-	return (*stack_a);
+	*stack_a = ft_rev_rotate(stack_a, NULL);
+	*stack_b = ft_rev_rotate(stack_b, NULL);
+	if (operation)
+		ft_putendl(operation);
 }
 
-t_list	*ft_push(t_list **src, t_list **dest)
+t_list	*ft_push(t_list **src, t_list **dest, char *operation)
 {
 	t_list	*src_stack;
 
@@ -108,6 +119,8 @@ t_list	*ft_push(t_list **src, t_list **dest)
 		*src = NULL;
 		ft_lstadd_front(dest, src_stack);
 	}
+	if (operation)
+		ft_putendl(operation);
 	return (*src);
 }
 
@@ -183,27 +196,27 @@ void	create_list(t_list **head, int i, int flag, char **argv)
 void	emplement_operation(t_list **stack_a, t_list **stack_b, char *line)
 {
 	if (ft_strncmp("rr", line, ft_strlen(line)) == 0)
-		rotate_both(stack_a, stack_b);
+		rotate_both(stack_a, stack_b, NULL);
 	else if (ft_strncmp("ss", line, ft_strlen(line)) == 0)
-		swap_both(stack_a, stack_b);
+		swap_both(stack_a, stack_b, NULL);
 	else if (ft_strncmp("sa", line, ft_strlen(line)) == 0)
-		ft_swap(*stack_a);
+		ft_swap(*stack_a, NULL);
 	else if (ft_strncmp("sb", line, ft_strlen(line)) == 0)
-		ft_swap(*stack_b);
+		ft_swap(*stack_b, NULL);
 	else if (ft_strncmp("ra", line, ft_strlen(line)) == 0)
-		ft_rotate(stack_a);
+		ft_rotate(stack_a, NULL);
 	else if (ft_strncmp("rb", line, ft_strlen(line)) == 0)
-		ft_rotate(stack_b);
+		ft_rotate(stack_b, NULL);
 	else if (ft_strncmp("pb", line, ft_strlen(line)) == 0)
-		ft_push(stack_a, stack_b);
+		ft_push(stack_a, stack_b, NULL);
 	else if (ft_strncmp("pa", line, ft_strlen(line)) == 0)
-		ft_push(stack_b, stack_a);
+		ft_push(stack_b, stack_a, NULL);
 	else if (ft_strncmp("rrr", line, ft_strlen(line)) == 0)
-		rev_rotate_both(stack_a, stack_b);
+		rev_rotate_both(stack_a, stack_b, NULL);
 	else if (ft_strncmp("rra", line, ft_strlen(line)) == 0)
-		ft_rev_rotate(stack_a);
+		ft_rev_rotate(stack_a, NULL);
 	else if (ft_strncmp("rrb", line, ft_strlen(line)) == 0)
-		ft_rev_rotate(stack_b);
+		ft_rev_rotate(stack_b, NULL);
 }
 
 void	checker(t_list **head)

@@ -9,7 +9,7 @@
 /*  Updated: 2021/06/02 16:44:46 by jthompso           ###   ########.fr      */
 /*                                                                            */
 /* ************************************************************************** */
-#include <stdio.h>
+
 #include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
@@ -769,17 +769,19 @@ void	make_sorted_list(t_list *stack, t_list **sorted)
 	t_list	*tmp;
 	int 	num;
 	int		i;
-	
+
 	while (stack)
 	{
 		num = *(int *)stack->content;
 		ft_lstadd_back(sorted, ft_lstnew(&num, sizeof(int)));
-		stack = stack->next;	
+		stack = stack->next;
 	}
+	ft_lstprint(stack, ft_lstprint_int);
+	ft_putchar('\n');
 	ft_merge_sort(sorted);
 	i = 0;
 	tmp = *sorted;
-	while (tmp->next)
+	while (tmp)
 	{
 		tmp->location = i;
 		tmp = tmp->next;
@@ -855,35 +857,26 @@ void	sort_stack_b(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-void	push_swap_large(t_list **stack_a)
+void	push_swap_large(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*sorted;
 	int		pivot;
 	t_list	*tmp;
-//	int		last = ft_lstsize(*stack_a) - 1;
+	int		last = ft_lstsize(*stack_a) - 1;
 
 	make_sorted_list(*stack_a, &sorted);
-	pivot = find_pivot(sorted, ft_lstsize(sorted) / 2);
-	ft_putendl("ok");
-	ft_lstprint(sorted, ft_lstprint_int);
+	ft_lstprint(*stack_a, ft_lstprint_int);
 	ft_putchar('\n');
+	pivot = find_pivot(sorted, ft_lstsize(sorted) / 2);
 	ft_lstprint(*stack_a, ft_lstprint_int);
 	ft_putchar('\n');
 	set_stack_location(*stack_a, &sorted);
-	ft_putendl("ok");
-//	split_stack_a(stack_a, stack_b, pivot);
-	ft_lstprint(sorted, ft_lstprint_int);
-	ft_putchar('\n');
 	ft_lstprint(*stack_a, ft_lstprint_int);
 	ft_putchar('\n');
-	tmp = *stack_a;
-	while (tmp)
-	{
-		ft_putnbr(tmp->location);
-		tmp = tmp->next;
-	}
+	split_stack_a(stack_a, stack_b, pivot);
+	ft_lstprint(*stack_a, ft_lstprint_int);
 	ft_putchar('\n');
-/*	sort_stack_b(stack_a, stack_b);
+	sort_stack_b(stack_a, stack_b);
 	tmp = *stack_a;
 	while (tmp->location != 0)
 	{
@@ -910,7 +903,18 @@ void	push_swap_large(t_list **stack_a)
 	}
 	tmp = *stack_a;
 	while (tmp->location != 0)
-		ft_rev_rotate(stack_a, "rra");*/
+		ft_rev_rotate(stack_a, "rra");
+/*	ft_lstprint(sorted, ft_lstprint_int);
+	ft_putchar('\n');
+	ft_lstprint(*stack_a, ft_lstprint_int);
+	ft_putchar('\n');
+	tmp = *stack_a;
+	while (tmp)
+	{
+		ft_putnbr(tmp->location);
+		tmp = tmp->next;
+	}
+	ft_putchar('\n');*/
 	ft_lstclear(&sorted, ft_free);
 }
 
@@ -929,7 +933,7 @@ void	push_swap(int lst_size, t_list **head)
 	else if (lst_size == 4 || lst_size == 5)
 		push_swap_small(head);
 	else
-		push_swap_large(head);
+		push_swap_large(head, &stack_b);
 }
 
 void	create_list(t_list **head, int i, int flag, char **argv)

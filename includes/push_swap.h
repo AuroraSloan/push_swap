@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 18:50:55 by jthompso          #+#    #+#             */
-/*   Updated: 2021/06/07 17:11:26 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/06/21 01:47:14 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,12 @@ typedef struct	s_int_data
 	int	data;
 	int	loc;
 }				t_int_data;
+
+typedef struct	s_ps_list
+{
+	void				*content;
+	int					location;
+	struct s_ps_list	*next;
+}				t_ps_list;
 
 # endif
