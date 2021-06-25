@@ -13,6 +13,8 @@
 #include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
+void	push_swap_large(t_list **stack_a, t_list **stack_b, int len);
+
 void	failed_exit(char *exit_mssg)
 {
 	ft_putendl_fd(exit_mssg, 2);
@@ -55,7 +57,7 @@ void	swap_both(t_list **stack_a, t_list **stack_b, char *operation)
 		ft_putendl(operation);
 }
 
-t_list	*ft_rotate(t_list **head, char *operation)
+void	ft_rotate(t_list **head, char *operation)
 {
 	t_list	*old_head;
 	t_list	*new_head;
@@ -68,19 +70,18 @@ t_list	*ft_rotate(t_list **head, char *operation)
 	old_head->next = NULL;
 	new_head->next = old_head;
 	if (operation)
-		ft_putendl(operation);
-	return (*head);
+		ft_putendl(operation);	
 }
 
 void	rotate_both(t_list **stack_a, t_list  **stack_b, char *operation)
 {
-	*stack_a = ft_rotate(stack_a, NULL);
-	*stack_b = ft_rotate(stack_b, NULL);
+	ft_rotate(stack_a, NULL);
+	ft_rotate(stack_b, NULL);
 	if (operation)
 		ft_putendl(operation);
 }
 
-t_list	*ft_rev_rotate(t_list **head, char *operation)
+void	ft_rev_rotate(t_list **head, char *operation)
 {	
 	t_list	*new_head;
 	t_list	*new_end;
@@ -96,18 +97,17 @@ t_list	*ft_rev_rotate(t_list **head, char *operation)
 	*head = new_head;
 	if (operation)
 		ft_putendl(operation);
-	return (*head);
 }
 
 void	rev_rotate_both(t_list **stack_a, t_list **stack_b, char *operation)
 {
-	*stack_a = ft_rev_rotate(stack_a, NULL);
-	*stack_b = ft_rev_rotate(stack_b, NULL);
+	ft_rev_rotate(stack_a, NULL);
+	ft_rev_rotate(stack_b, NULL);
 	if (operation)
 		ft_putendl(operation);
 }
 
-t_list	*ft_push(t_list **src, t_list **dest, char *operation)
+void	ft_push(t_list **src, t_list **dest, char *operation)
 {
 	t_list	*src_stack;
 	t_list	*tmp;
@@ -127,7 +127,6 @@ t_list	*ft_push(t_list **src, t_list **dest, char *operation)
 //	tmp->location = src_stack->location;
 	if (operation)
 		ft_putendl(operation);
-	return (*src);
 }
 
 int	lst_sorted(t_list *lst)
@@ -278,7 +277,7 @@ void	init_list_max(t_list *stack, t_int_data *int_data)
 	}
 }
 
-t_list	*push_min_max(t_list **src, t_list **dest, t_int_data int_data, int boool)
+void	push_min_max(t_list **src, t_list **dest, t_int_data int_data)
 {
 	t_list	*stack;
 
@@ -286,55 +285,39 @@ t_list	*push_min_max(t_list **src, t_list **dest, t_int_data int_data, int boool
 	if ((double)int_data.loc >= (double)ft_lstsize(stack) / 2.0)
 	{	
 		while (*(int *)stack->content != int_data.data)
-		{
-			if (boool)
-				ft_rev_rotate(src, "rra");
-			else
-				ft_rev_rotate(src, NULL);
+		{	
+			ft_rev_rotate(src, "rra");
 			stack = *src;
 		}
 	}
 	else
 	{	
 		while (*(int *)stack->content != int_data.data)
-		{
-			if (boool)
-				ft_rotate(src, "ra");
-			else
-				ft_rotate(src, NULL);
+		{	
+			ft_rotate(src, "ra");
 			stack = *src;
 		}
 	}
 	if (!lst_sorted(*src))
-	{
-		if (boool)
-			stack = ft_push(src, dest, "pb");
-		else
-			stack = ft_push(src, dest, NULL);
-	}
-	return (stack);
+		ft_push(src, dest, "pb");
 }
 
-void	push_swap_small(t_list **head)
+void	push_swap_small(t_list **head, t_list **stack_b)
 {
-	t_list		*stack_a;
-	t_list		*stack_b;
 	t_int_data	int_data;
 
-	stack_a = *head;
-	stack_b = NULL;
-	init_list_min(stack_a, &int_data);
-	stack_a = push_min_max(head, &stack_b, int_data, 1);
-	if (ft_lstsize(stack_a) == 4)
+	init_list_min(*head, &int_data);
+	push_min_max(head, stack_b, int_data);
+	if (ft_lstsize(*head) == 4)
 	{	
-		init_list_min(stack_a, &int_data);
-		stack_a = push_min_max(head, &stack_b, int_data, 1);
+		init_list_min(*head, &int_data);
+		push_min_max(head, stack_b, int_data);
 	}
-	stack_a = push_swap_three(head);
-	if (ft_lstsize(stack_b) == 2)
-		ft_push(&stack_b, head, "pa");
-	if (ft_lstsize(stack_b) == 1)
-		ft_push(&stack_b, head, "pa");
+	push_swap_three(head);
+	if (ft_lstsize(*stack_b) == 2)
+		ft_push(stack_b, head, "pa");
+	if (ft_lstsize(*stack_b) == 1)
+		ft_push(stack_b, head, "pa");
 }
 
 /*void	push_swap_large(t_list **head)
@@ -613,6 +596,7 @@ void	push_swap_small(t_list **head)
 		ft_push(&stack_b, &stack_a, NULL);
 	return (stack_a);
 }*/
+
 ///best to date
 /*void	push_swap_large(t_list **head, t_list **tmp)
 {
@@ -626,6 +610,7 @@ void	push_swap_small(t_list **head)
 	stack_a = *head;
 	stack_b = NULL;	
 	flag = 0;
+	make_sorted_list(*head, tmp);
 	comp = *tmp;
 	comp = ft_rotate(&comp, NULL);
 	while (stack_a)
@@ -764,29 +749,27 @@ void	ft_merge_sort(t_list **sorting)
 	*sorting = ft_merge_lists(a, b);
 }
 
-void	make_sorted_list(t_list *stack, t_list **sorted)
+void	make_sorted_list(t_list *stack, t_list **sorted, int len)
 {
 	t_list	*tmp;
 	int 	num;
 	int		i;
-
-	while (stack)
+	
+	while (len)
 	{
 		num = *(int *)stack->content;
 		ft_lstadd_back(sorted, ft_lstnew(&num, sizeof(int)));
-		stack = stack->next;
+		stack = stack->next;	
+		len--;
 	}
-	ft_lstprint(stack, ft_lstprint_int);
-	ft_putchar('\n');
 	ft_merge_sort(sorted);
 	i = 0;
 	tmp = *sorted;
 	while (tmp)
 	{
-		tmp->location = i;
+		tmp->location = i++;
 		tmp = tmp->next;
-		i++;
-	}
+	}	
 }
 
 void	set_stack_location(t_list *stack, t_list **sorted)
@@ -803,7 +786,7 @@ void	set_stack_location(t_list *stack, t_list **sorted)
 			reference = reference->next;
 		}
 		stack = stack->next;
-	}	
+	}
 }
 
 int		find_pivot(t_list *sorted, int center)
@@ -821,100 +804,259 @@ int		find_pivot(t_list *sorted, int center)
 	return (*(int *)sorted->content);
 }
 
-void	split_stack_a(t_list **stack_a, t_list **stack_b, int pivot)
+int	pivot_to_b(t_list **stack_a, t_list **stack_b, t_list *sorted, int pivot)
 {
-	int		center;
+	int		len;
+	int		rot;
 	t_list	*tmp;
 
-	center = ft_lstsize(*stack_a) / 2;
-	while (ft_lstsize(*stack_a) > center)
+	rot = 0;
+	len = ft_lstsize(sorted) / 2;
+	while (ft_lstsize(*stack_a) > len)
 	{
 		tmp = *stack_a;
 		if (*(int *)tmp->content <= pivot)
 			ft_push(stack_a, stack_b, "pb");
 		else
+		{
 			ft_rotate(stack_a, "ra");
+			rot++;
+		}
 	}
+	return (rot);
 }
 
-void	sort_stack_b(t_list **stack_a, t_list **stack_b)
+int	pivot_to_a(t_list **stack_a, t_list **stack_b, t_list *sorted, int pivot)
 {
-	int		next;
 	t_list	*tmp;
+	int		part_len;
+	int		half;
 
-	next = 0;
+	part_len = 0;
+	half = ft_lstsize(sorted) / 2;
+	while (part_len <= half)
+	{
+		tmp = *stack_b;
+		if (*(int *)tmp->content > pivot)
+		{
+			ft_push(stack_b, stack_a, "pa");
+			part_len++;
+		}
+		else
+			ft_rotate(stack_b, "rb");
+	}
+	return (part_len);
+}
+
+void	sort_stack_b(t_list **stack_a, t_list **stack_b, int next)
+{
+	t_list	*tmp;
+	t_int_data	max;
+
 	while (ft_lstsize(*stack_b))
 	{
 		tmp = *stack_b;
+		init_list_max(tmp, &max);
 		if (tmp->location == next)
 		{
 			ft_push(stack_b, stack_a, "pa");
-			ft_rev_rotate(stack_a, "rra");
+			ft_rotate(stack_a, "ra");
 			next++;
 		}
+		else if (!max.loc)
+			ft_push(stack_b, stack_a, "pa");
 		else
 			ft_rotate(stack_b, "rb");
 	}
 }
 
-void	push_swap_large(t_list **stack_a, t_list **stack_b)
+/*void	push_swap_large(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*sorted;
 	int		pivot;
 	t_list	*tmp;
-	int		last = ft_lstsize(*stack_a) - 1;
 
+	sorted = NULL;	
 	make_sorted_list(*stack_a, &sorted);
-	ft_lstprint(*stack_a, ft_lstprint_int);
-	ft_putchar('\n');
-	pivot = find_pivot(sorted, ft_lstsize(sorted) / 2);
-	ft_lstprint(*stack_a, ft_lstprint_int);
-	ft_putchar('\n');
-	set_stack_location(*stack_a, &sorted);
-	ft_lstprint(*stack_a, ft_lstprint_int);
-	ft_putchar('\n');
+	pivot = find_pivot(sorted, ft_lstsize(sorted) / 2);	
+	set_stack_location(*stack_a, &sorted);	
 	split_stack_a(stack_a, stack_b, pivot);
-	ft_lstprint(*stack_a, ft_lstprint_int);
-	ft_putchar('\n');
-	sort_stack_b(stack_a, stack_b);
-	tmp = *stack_a;
+	sort_stack_b(stack_a, stack_b, 0);
+	tmp = *stack_a;	
 	while (tmp->location != 0)
 	{
-		ft_push(stack_a, stack_b, "pb");
+		if (tmp->location == ft_lstlast(*stack_a)->location + 1)
+			ft_rotate(stack_a, "ra");
+		else
+			ft_push(stack_a, stack_b, "pb");
 		tmp = *stack_a;
 	}
-	int next = 0;
-	while (ft_lstsize(*stack_b))
-	{
-		tmp = *stack_b;
-		if (tmp->location == next)
-		{
-			ft_push(stack_b, stack_a, "pa");
-			ft_rev_rotate(stack_a, "rra");
-			next++;
-		}
-		else if (tmp->location == last)
-		{
-			ft_push(stack_b, stack_a, "pb");
-			last--;
-		}
-		else
-			ft_rotate(stack_b, "rb");
-	}
+	sort_stack_b(stack_a, stack_b, ft_lstlast(*stack_a)->location);
 	tmp = *stack_a;
 	while (tmp->location != 0)
-		ft_rev_rotate(stack_a, "rra");
-/*	ft_lstprint(sorted, ft_lstprint_int);
-	ft_putchar('\n');
-	ft_lstprint(*stack_a, ft_lstprint_int);
-	ft_putchar('\n');
-	tmp = *stack_a;
-	while (tmp)
 	{
-		ft_putnbr(tmp->location);
-		tmp = tmp->next;
+		tmp = *stack_a;
+		ft_rotate(stack_a, "ra");
 	}
-	ft_putchar('\n');*/
+	ft_rev_rotate(stack_a, "rra");
+	ft_lstclear(&sorted, ft_free);
+}*/
+
+void	TMPpush_min_max(t_list **src, t_list **dest, t_int_data int_data)
+{
+	t_list	*stack;
+
+	stack = *src;
+	if ((double)int_data.loc >= (double)ft_lstsize(stack) / 2.0)
+	{		
+		while (*(int *)stack->content != int_data.data)
+		{	
+			ft_rev_rotate(src, "rrb");
+			stack = *src;
+		}
+	}
+	else
+	{	
+		while (*(int *)stack->content != int_data.data)
+		{	
+			ft_rotate(src, "rb");
+			stack = *src;
+		}
+	}
+	if (!lst_sorted(*src))
+		ft_push(src, dest, "pa");
+}
+
+void	TMP_push_swap_three(t_list **head)
+{
+	t_list	*tmp;
+
+	tmp = *head;
+	if (lst_rev_sorted(*head))
+	{
+		*head = ft_swap(*head, "sb");
+		ft_rev_rotate(head, "rrb");
+	}
+	else if (head_is_max(*head))
+		ft_rotate(head, "rb");
+	else if (head_is_mid(*head) && *(int *)tmp->next->content
+			< *(int *)ft_lstlast(*head)->content)
+		*head = ft_swap(*head, "sb");
+	else if (head_is_mid(*head))
+		ft_rev_rotate(head, "rrb");
+	if (!lst_sorted(*head))
+	{	
+		*head = ft_swap(*head, "sb");
+		ft_rotate(head, "rb");
+	}
+}
+
+void	TMP_push_swap_small(t_list **head, t_list **tool, int len)
+{
+	t_int_data	min_data;
+
+	init_list_min(*head, &min_data);
+	TMPpush_min_max(head, tool, min_data);	
+	if (len == 5)
+	{
+		init_list_min(*head, &min_data);
+		TMPpush_min_max(head, tool, min_data);
+	}
+	TMP_push_swap_three(head);
+	if (len == 4 || len == 5)
+		ft_push(tool, head, "pb");
+	if (len == 5)
+		ft_push(tool, head, "pb");
+}
+
+void	change_later(t_list **stack_a, t_list **stack_b, int len)
+{
+	t_list	*tmp;
+
+	tmp = *stack_b;
+	if (len == 2 && *(int *)tmp->content > *(int *)tmp->next->content)
+		*stack_b = ft_swap(*stack_b, "sb");
+	else if (len == 3)
+		TMP_push_swap_three(stack_b);
+	else if (!lst_sorted(*stack_b) && (len == 4 || len == 5))
+		TMP_push_swap_small(stack_b, stack_a, len);
+	while (*stack_b)
+	{
+		ft_push(stack_b, stack_a, "pa");
+		ft_rotate(stack_a, "ra");	
+	}	
+}
+
+int	partition_stack(t_list **stack_a, t_list **stack_b, int b_len)
+{
+	t_list	*sorted;
+	int		part_len;
+	int		pivot;
+
+	sorted = NULL;
+	if (*stack_b && ft_lstsize(*stack_b) <= 5)
+	{
+	//	change_later(stack_a, stack_b, ft_lstsize(*stack_b));	
+		return (b_len);
+	}
+	make_sorted_list(*stack_b, &sorted, b_len);
+	pivot = find_pivot(sorted, ft_lstsize(sorted) / 2);
+	part_len = pivot_to_a(stack_a, stack_b, sorted, b_len);
+	partition_stack(stack_a, stack_b, ft_lstsize(*stack_b));
+//	push_swap_large(stack_a, stack_b, ft_lstsize(*stack_b));
+	ft_lstclear(&sorted, ft_free);
+	return (part_len);
+}
+
+/*void	partition_part(t_list **stack_a, t_list **stack_b, int part_len)
+{
+	if (part_len <= 5)
+	{
+		while (ft_lstsize(*stack_b) < 5)
+			ft_push(stack_a, stack_b, "pb");
+		change_later(stack_a, stack_b, ft_lstsize(*stack_b));
+		return ;
+	}
+	push_swap_large(stack_a, stack_b, part_len);
+	//partition_stack(stack_a, stack_b, part_len);
+}*/
+
+void	push_swap_large(t_list **stack_a, t_list **stack_b, int len)
+{
+	t_list	*sorted;
+	int		part_len;
+	int		pivot;
+	int		rot;
+
+	sorted = NULL;
+	if (*stack_b && ft_lstsize(*stack_b) <= 5)
+		change_later(stack_a, stack_b, ft_lstsize(*stack_b));
+	if (!*stack_b && lst_sorted(*stack_a))
+		return ;	
+	if (!*stack_b && !lst_sorted(*stack_a))
+	{
+		if (len <= 5)
+		{
+			while (ft_lstsize(*stack_b) < len)
+				ft_push(stack_a, stack_b, "pb");
+		//	return ;
+			//change_later(stack_a, stack_b, ft_lstsize(*stack_b));
+		}
+		else
+		{
+			make_sorted_list(*stack_a, &sorted, len);
+			pivot = find_pivot(sorted, ft_lstsize(sorted) / 2);
+			rot = pivot_to_b(stack_a, stack_b, sorted, pivot);
+			while (rot)
+			{
+				ft_rev_rotate(stack_a, "rra");
+				rot--;
+			}
+		}
+	}
+	part_len = partition_stack(stack_a, stack_b, ft_lstsize(*stack_b));
+	push_swap_large(stack_a, stack_b, part_len);
+	//partition_part(stack_a, stack_b, part_len);
 	ft_lstclear(&sorted, ft_free);
 }
 
@@ -922,18 +1064,25 @@ void	push_swap(int lst_size, t_list **head)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
+	t_list	*sorted;
 
 	stack_a = *head;
 	stack_b = NULL;
+	sorted = NULL;
 	if (lst_size == 2 && *(int *)stack_a->content
 		> *(int *)stack_a->next->content)
 		ft_swap(stack_a, "sa");
 	else if (lst_size == 3)
 		push_swap_three(head);
 	else if (lst_size == 4 || lst_size == 5)
-		push_swap_small(head);
+		push_swap_small(head, &stack_b);
 	else
-		push_swap_large(head, &stack_b);
+	{
+		make_sorted_list(*head, &sorted, ft_lstsize(*head));
+		set_stack_location(*head, &sorted);
+		ft_lstclear(&sorted, ft_free);
+		push_swap_large(head, &stack_b, ft_lstsize(*head));
+	}
 }
 
 void	create_list(t_list **head, int i, int flag, char **argv)
@@ -978,8 +1127,10 @@ int	main(int argc, char **argv)
 		create_list(&stack_a, i, flag, argv);
 		if (ft_lstsize(stack_a) > 1 && !lst_sorted(stack_a))
 			push_swap(ft_lstsize(stack_a), &stack_a);
+//		ft_lstprint(stack_a, ft_lstprint_int);
+//		ft_putchar('\n');
 		ft_lstclear(&stack_a, ft_free);	
 	}
-	system("leaks push_swap");
+//	system("leaks push_swap");
 	exit(EXIT_SUCCESS);
 }
