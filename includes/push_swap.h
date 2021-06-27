@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 18:50:55 by jthompso          #+#    #+#             */
-/*   Updated: 2021/06/26 02:58:45 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/06/27 17:32:24 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct	s_ps_list
 
 typedef struct	s_info
 {
-	int		stack_len;
-	int		part_len;
+	t_list	*stack_len;
+	int		part_len;	
 }				t_info;
 
 # endif

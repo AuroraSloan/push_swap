@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:32:31 by jthompso          #+#    #+#             */
-/*   Updated: 2021/06/20 13:07:03 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/06/27 15:48:11 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,7 +251,7 @@ int	main(int argc, char **argv)
 	i = 1;
 	flag = 0;
 	stack_a = NULL;
-	if (argc > 501) //change later if argc > limit
+	if (argc > 1000) //change later if argc > limit
 		failed_exit("Error");
 	if (argc == 2 && ft_strchr(argv[i], ' '))
 	{
