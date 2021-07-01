@@ -6,7 +6,7 @@
 #    By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/27 18:46:49 by jthompso          #+#    #+#              #
-#    Updated: 2021/06/09 16:47:45 by jthompso         ###   ########.fr        #
+#    Updated: 2021/07/02 00:02:35 by jthompso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,10 @@ NAME = push_swap
 B_NAME = checker
 LIBS = libft/libft.a
 SRC_DIR = srcs/
-SRC_FILES = main.c
+SRC_FILES = main.c operations.c mod_both_stacks.c list_check.c \
+			push_swap_three.c push_swap_small.c init_min_max.c \
+			make_sorted_list.c push_swap_large.c pivot_to_a.c \
+			pivot_to_b.c partition_stack.c sort_to_a.c
 B_SRC_FILES = main_bonus.c
 SRCS = $(addprefix $(SRC_DIR), $(SRC_FILES))
 B_SRCS = $(addprefix $(SRC_DIR), $(B_SRC_FILES))

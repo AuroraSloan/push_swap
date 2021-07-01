@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:32:31 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/01 21:33:39 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/06/30 02:11:46 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,111 @@ void	failed_exit(char *exit_mssg)
 {
 	ft_putendl_fd(exit_mssg, 2);
 	exit(EXIT_FAILURE);
+}
+
+t_list	*ft_lstpop(t_list **head)
+{
+	t_list	*pop;
+
+	if (!*head)
+		return (NULL);
+	pop = *head;
+	*head = pop->next;
+	pop->next = NULL;
+	return (pop);
+}
+
+t_list	*ft_swap(t_list *lst, char *operation)
+{
+	t_list	tmp;
+
+	tmp.next = NULL;
+	tmp.content = lst->next->content;
+	lst->next->content = lst->content;
+	lst->content = tmp.content;
+	if (operation)
+		ft_putendl(operation);
+	return (lst);
+}
+
+void	swap_both(t_list **stack_a, t_list **stack_b, char *operation)
+{
+	ft_swap(*stack_a, NULL);
+	ft_swap(*stack_b, NULL);
+	if (operation)
+		ft_putendl(operation);
+}
+
+t_list	*ft_rotate(t_list **head, char *operation)
+{
+	t_list	*old_head;
+	t_list	*new_head;
+
+	old_head = *head;
+	new_head = *head;
+	while (new_head->next)
+		new_head = new_head->next;
+	*head = old_head->next;
+	old_head->next = NULL;
+	new_head->next = old_head;
+	if (operation)
+		ft_putendl(operation);
+	return (*head);
+}
+
+void	rotate_both(t_list **stack_a, t_list  **stack_b, char *operation)
+{
+	ft_rotate(stack_a, NULL);
+	ft_rotate(stack_b, NULL);
+	if (operation)
+		ft_putendl(operation);
+}
+
+t_list	*ft_rev_rotate(t_list **head, char *operation)
+{
+	t_list	*new_head;
+	t_list	*new_end;
+
+	new_head = *head;
+	while (new_head->next)
+	{
+		new_end = new_head;
+		new_head = new_head->next;
+	}
+	new_end->next = NULL;
+	new_head->next = *head;
+	*head = new_head;
+	if (operation)
+		ft_putendl(operation);
+	return (*head);
+}
+
+void	rev_rotate_both(t_list **stack_a, t_list **stack_b, char *operation)
+{
+	*stack_a = ft_rev_rotate(stack_a, NULL);
+	*stack_b = ft_rev_rotate(stack_b, NULL);
+	if (operation)
+		ft_putendl(operation);
+}
+
+t_list	*ft_push(t_list **src, t_list **dest, char *operation)
+{
+	t_list	*src_stack;
+
+	src_stack = *src;
+	if (src_stack->next)
+	{
+		*src = src_stack->next;
+		ft_lstadd_front(dest, ft_lstpop(&src_stack));
+	}
+	else
+	{	
+		*src = NULL;
+		ft_lstadd_front(dest, src_stack);
+	}
+	if (operation)
+		ft_putendl(operation);
+	return (*src);
 }
 
 int	lst_sorted(t_list *lst)
