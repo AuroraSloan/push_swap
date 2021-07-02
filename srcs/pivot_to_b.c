@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 23:54:12 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/01 23:56:49 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 21:46:27 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	minimize_rot_instruction(t_list **stack_a, t_list **stack_b)
 		ft_rotate(stack_a, "ra");
 }
 
-int			pivot_to_b(t_list **stack_a, t_list **stack_b, t_list *sorted)
+int	pivot_to_b(t_list **stack_a, t_list **stack_b, t_list *sorted)
 {
 	double	len;
 	int		rot;

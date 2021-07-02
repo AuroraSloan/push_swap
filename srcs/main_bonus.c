@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:32:31 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/02 16:29:01 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 21:43:02 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@ void	failed_exit(char *exit_mssg)
 {
 	ft_putendl_fd(exit_mssg, 2);
 	exit(EXIT_FAILURE);
+}
+
+static void	free_and_exit(t_list **stack_a, t_list **stack_b)
+{
+	if (*stack_a)
+		ft_lstclear(stack_a, ft_free);
+	if (*stack_b)
+		ft_lstclear(stack_b, ft_free);
+	failed_exit("Error");
 }
 
 static void	emplement_operation(t_list **stack_a, t_list **stack_b, char *line)
@@ -44,7 +53,7 @@ static void	emplement_operation(t_list **stack_a, t_list **stack_b, char *line)
 	else if (ft_strncmp("rrb", line, ft_strlen(line)) == 0)
 		ft_rev_rotate(stack_b, NULL);
 	else
-		failed_exit("Error");
+		free_and_exit(stack_a, stack_b);
 }
 
 static void	checker(t_list **head)
@@ -60,10 +69,13 @@ static void	checker(t_list **head)
 	{
 		ret = get_next_line(0, &line);
 		if (!ret)
-			break ;	
+			break ;
 		emplement_operation(head, &stack_b, line);
+		ft_free(line);
 	}
-	if (lst_sorted(*head))
+	if (!*head || stack_b)
+		ft_putendl("KO");
+	else if (lst_sorted(*head))
 		ft_putendl("OK");
 	else
 		ft_putendl("KO");
@@ -89,13 +101,8 @@ int	main(int argc, char **argv)
 	}
 	if (argc > 1)
 	{
-	/*	create_list(&stack_a, i, flag, argv);
-		if (lst_sorted(stack_a))
-			ft_putendl("OK");
-		if (ft_lstsize(stack_a) > 1 && !lst_sorted(stack_a))*/
-		if (ft_lstsize(stack_a) >= 1)
-			checker(&stack_a);
-		ft_putendl("ok");
+		create_list(&stack_a, i, flag, argv);
+		checker(&stack_a);
 	}
 	ft_lstclear(&stack_a, ft_free);
 	exit(EXIT_SUCCESS);

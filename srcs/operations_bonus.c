@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 21:14:59 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/02 16:02:26 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 21:42:29 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_swap(t_list *lst, char *operation)
 {
 	t_list	tmp;
 
+	if (!lst || ft_lstsize(lst) < 2)
+		return ;
 	tmp.next = NULL;
 	tmp.content = lst->next->content;
 	tmp.location = lst->next->location;
@@ -25,7 +27,7 @@ void	ft_swap(t_list *lst, char *operation)
 	lst->content = tmp.content;
 	lst->location = tmp.location;
 	if (operation)
-		ft_putendl(operation);	
+		ft_putendl(operation);
 }
 
 void	ft_rotate(t_list **head, char *operation)
@@ -33,6 +35,8 @@ void	ft_rotate(t_list **head, char *operation)
 	t_list	*old_head;
 	t_list	*new_head;
 
+	if (!*head || ft_lstsize(*head) < 2)
+		return ;
 	old_head = *head;
 	new_head = *head;
 	while (new_head->next)
@@ -49,6 +53,8 @@ void	ft_rev_rotate(t_list **head, char *operation)
 	t_list	*new_head;
 	t_list	*new_end;
 
+	if (!*head || ft_lstsize(*head) < 2)
+		return ;
 	new_head = *head;
 	while (new_head->next)
 	{
@@ -67,6 +73,8 @@ void	ft_push(t_list **src, t_list **dest, char *operation)
 	t_list	*src_stack;
 	t_list	*tmp;
 
+	if (!*src)
+		return ;
 	src_stack = *src;
 	if (src_stack->next)
 	{

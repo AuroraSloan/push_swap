@@ -6,14 +6,14 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 22:43:32 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/02 00:02:56 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 21:45:52 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
-static void	push_min_to_a(t_list **stack_a, t_list **stack_b, t_int_data max_data)
+static void	min_to_a(t_list **stack_a, t_list **stack_b, t_int_data max_data)
 {
 	int		half;
 	t_list	*tmp;
@@ -54,7 +54,7 @@ void	sort_to_a(t_list **stack_a, t_list **stack_b)
 		init_list_min(*stack_b, &min_data);
 		init_list_max(*stack_b, &max_data);
 		if (*(int *)tmp->content == min_data.data && ft_lstsize(*stack_b) > 1)
-			push_min_to_a(stack_a, stack_b, max_data);
+			min_to_a(stack_a, stack_b, max_data);
 		else if (*(int *)tmp->content == max_data.data)
 			ft_push(stack_b, stack_a, "pa");
 		else if ((double)max_data.loc < (double)ft_lstsize(*stack_b) / 2)

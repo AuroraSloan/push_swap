@@ -6,14 +6,14 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 22:26:47 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/01 22:37:39 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 21:46:38 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
-static void		ms_partition(t_list *head, t_list **a, t_list **b)
+static void	ms_partition(t_list *head, t_list **a, t_list **b)
 {
 	int		i;
 
@@ -59,7 +59,7 @@ static t_list	*ms_merge_lists(t_list *a, t_list *b)
 	return (merged);
 }
 
-static void			ft_merge_sort(t_list **sorting)
+static void	ft_merge_sort(t_list **sorting)
 {
 	t_list	*head;
 	t_list	*a;
