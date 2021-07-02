@@ -6,68 +6,66 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:32:31 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/02 21:43:02 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 23:48:00 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/checker.h"
 
-void	failed_exit(char *exit_mssg)
+static int	operation_matches(char *operation, char *line)
 {
-	ft_putendl_fd(exit_mssg, 2);
-	exit(EXIT_FAILURE);
-}
+	int	ret;
 
-static void	free_and_exit(t_list **stack_a, t_list **stack_b)
-{
-	if (*stack_a)
-		ft_lstclear(stack_a, ft_free);
-	if (*stack_b)
-		ft_lstclear(stack_b, ft_free);
-	failed_exit("Error");
+	ret = 0;
+	if (ft_strncmp(operation, line, ft_strlen(line)) == 0)
+		ret = 1;
+	return (ret);
 }
 
 static void	emplement_operation(t_list **stack_a, t_list **stack_b, char *line)
 {
-	if (ft_strncmp("rr", line, ft_strlen(line)) == 0)
+	if (operation_matches("rr", line) && ft_strlen(line) == 2)
 		rotate_both(stack_a, stack_b, NULL);
-	else if (ft_strncmp("ss", line, ft_strlen(line)) == 0)
+	else if (operation_matches("ss", line) && ft_strlen(line) == 2)
 		swap_both(stack_a, stack_b, NULL);
-	else if (ft_strncmp("sa", line, ft_strlen(line)) == 0)
+	else if (operation_matches("sa", line) && ft_strlen(line) == 2)
 		ft_swap(*stack_a, NULL);
-	else if (ft_strncmp("sb", line, ft_strlen(line)) == 0)
+	else if (operation_matches("sb", line) && ft_strlen(line) == 2)
 		ft_swap(*stack_b, NULL);
-	else if (ft_strncmp("ra", line, ft_strlen(line)) == 0)
+	else if (operation_matches("ra", line) && ft_strlen(line) == 2)
 		ft_rotate(stack_a, NULL);
-	else if (ft_strncmp("rb", line, ft_strlen(line)) == 0)
+	else if (operation_matches("rb", line) && ft_strlen(line) == 2)
 		ft_rotate(stack_b, NULL);
-	else if (ft_strncmp("pb", line, ft_strlen(line)) == 0)
+	else if (operation_matches("pb", line) && ft_strlen(line) == 2)
 		ft_push(stack_a, stack_b, NULL);
-	else if (ft_strncmp("pa", line, ft_strlen(line)) == 0)
+	else if (operation_matches("pa", line) && ft_strlen(line) == 2)
 		ft_push(stack_b, stack_a, NULL);
-	else if (ft_strncmp("rrr", line, ft_strlen(line)) == 0)
+	else if (operation_matches("rrr", line) && ft_strlen(line) == 3)
 		rev_rotate_both(stack_a, stack_b, NULL);
-	else if (ft_strncmp("rra", line, ft_strlen(line)) == 0)
+	else if (operation_matches("rra", line) && ft_strlen(line) == 3)
 		ft_rev_rotate(stack_a, NULL);
-	else if (ft_strncmp("rrb", line, ft_strlen(line)) == 0)
+	else if (operation_matches("rrb", line) && ft_strlen(line) == 3)
 		ft_rev_rotate(stack_b, NULL);
 	else
 		free_and_exit(stack_a, stack_b);
 }
 
-static void	checker(t_list **head)
+static void	ft_checker(t_list **head)
 {
 	t_list	*stack_b;
 	char	*line;
 	int		ret;
+	int		flag;
 
 	stack_b = NULL;
 	line = NULL;
 	ret = 1;
+	flag = 0;
 	while (ret > 0)
 	{
 		ret = get_next_line(0, &line);
+		flag = check_for_nl(flag, line, head);
 		if (!ret)
 			break ;
 		emplement_operation(head, &stack_b, line);
@@ -84,9 +82,9 @@ static void	checker(t_list **head)
 
 int	main(int argc, char **argv)
 {
-	int				i;
-	t_list			*stack_a;
-	int				flag;
+	int		i;
+	t_list	*stack_a;
+	int		flag;
 
 	i = 1;
 	flag = 0;
@@ -102,7 +100,7 @@ int	main(int argc, char **argv)
 	if (argc > 1)
 	{
 		create_list(&stack_a, i, flag, argv);
-		checker(&stack_a);
+		ft_checker(&stack_a);
 	}
 	ft_lstclear(&stack_a, ft_free);
 	exit(EXIT_SUCCESS);

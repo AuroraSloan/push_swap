@@ -6,20 +6,20 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 22:16:37 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/01 22:17:13 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 22:34:55 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
-int	head_is_max(t_list *lst)
+static int	head_is_max(t_list *lst)
 {
 	return (*(int *)lst->content > *(int *)lst->next->content
 		&& *(int *)lst->content > *(int *)ft_lstlast(lst)->content);
 }
 
-int	head_is_mid(t_list *lst)
+static int	head_is_mid(t_list *lst)
 {
 	if (*(int *)lst->content > *(int *)lst->next->content
 		&& *(int *)lst->content < *(int *)ft_lstlast(lst)->content)

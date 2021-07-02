@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 21:05:39 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/02 21:55:54 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 23:49:46 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,7 @@ void	duplicate_check(t_list *lst);
 void	overflow_check(int num, char *str, t_list *lst);
 void	create_list(t_list **head, int i, int flag, char **argv);
 void	failed_exit(char *exit_mssg);
+void	free_and_exit(t_list **stack_a, t_list **stack_b);
+int		check_for_nl(int flag, char *line, t_list **head);
 
 #endif

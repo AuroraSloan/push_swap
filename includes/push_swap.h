@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 18:50:55 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/02 21:55:07 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 22:35:17 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ int		lst_sorted(t_list *lst);
 int		lst_rev_sorted(t_list *lst);
 void	duplicate_check(t_list *lst);
 void	overflow_check(int num, char *str, t_list *lst);
-int		head_is_max(t_list *lst);
-int		head_is_mid(t_list *lst);
 t_list	*push_swap_three(t_list **head);
 void	init_list_min(t_list *stack, t_int_data *int_data);
 void	init_list_max(t_list *stack, t_int_data *int_data);
