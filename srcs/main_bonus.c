@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 17:32:31 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/01 21:33:39 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 16:29:01 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,76 +19,7 @@ void	failed_exit(char *exit_mssg)
 	exit(EXIT_FAILURE);
 }
 
-int	lst_sorted(t_list *lst)
-{
-	int	ret;
-
-	ret = 1;
-	while (lst->next)
-	{
-		if (*(int *)lst->content > *(int *)lst->next->content)
-		{
-			ret = 0;
-			break ;
-		}
-		lst = lst->next;
-	}
-	return (ret);
-}
-
-void	duplicate_check(t_list *lst)
-{
-	t_list	*tmp;
-
-	while (lst->next)
-	{
-		tmp = lst->next;
-		while (tmp)
-		{
-			if (*(int *)lst->content == *(int *)tmp->content)
-			{
-				ft_lstclear(&lst, ft_free);
-				failed_exit("Error");
-			}
-			tmp = tmp->next;
-		}
-		lst = lst->next;
-	}
-}
-
-void	overflow_check(int num, char *str, t_list *lst)
-{
-	char	*revert;
-
-	revert = ft_itoa(num);
-	if (ft_memcmp(revert, str, ft_strlen(str)) != 0)
-	{
-		ft_free(revert);
-		ft_lstclear(&lst, ft_free);
-		failed_exit("Error");
-	}
-	ft_free(revert);
-}
-
-void	create_list(t_list **head, int i, int flag, char **argv)
-{
-	int		num;
-
-	while (argv[i])
-	{
-		overflow_check(ft_atoi(argv[i]), argv[i], *head);
-		num = ft_atoi(argv[i]);
-		if (flag)
-			ft_free(argv[i]);
-		i++;
-		ft_lstadd_back(head, ft_lstnew(&num, sizeof(int)));
-	}
-	if (flag)
-		ft_free(argv);
-	duplicate_check(*head);
-}
-
-void	emplement_operation(t_list **stack_a, t_list **stack_b, char *line)
+static void	emplement_operation(t_list **stack_a, t_list **stack_b, char *line)
 {
 	if (ft_strncmp("rr", line, ft_strlen(line)) == 0)
 		rotate_both(stack_a, stack_b, NULL);
@@ -112,9 +43,11 @@ void	emplement_operation(t_list **stack_a, t_list **stack_b, char *line)
 		ft_rev_rotate(stack_a, NULL);
 	else if (ft_strncmp("rrb", line, ft_strlen(line)) == 0)
 		ft_rev_rotate(stack_b, NULL);
+	else
+		failed_exit("Error");
 }
 
-void	checker(t_list **head)
+static void	checker(t_list **head)
 {
 	t_list	*stack_b;
 	char	*line;
@@ -146,7 +79,7 @@ int	main(int argc, char **argv)
 	i = 1;
 	flag = 0;
 	stack_a = NULL;
-	if (argc > 1000) //change later if argc > limit
+	if (argc > 1000)
 		failed_exit("Error");
 	if (argc == 2 && ft_strchr(argv[i], ' '))
 	{
@@ -156,11 +89,13 @@ int	main(int argc, char **argv)
 	}
 	if (argc > 1)
 	{
-		create_list(&stack_a, i, flag, argv);
+	/*	create_list(&stack_a, i, flag, argv);
 		if (lst_sorted(stack_a))
 			ft_putendl("OK");
-		if (ft_lstsize(stack_a) > 1 && !lst_sorted(stack_a))
+		if (ft_lstsize(stack_a) > 1 && !lst_sorted(stack_a))*/
+		if (ft_lstsize(stack_a) >= 1)
 			checker(&stack_a);
+		ft_putendl("ok");
 	}
 	ft_lstclear(&stack_a, ft_free);
 	exit(EXIT_SUCCESS);

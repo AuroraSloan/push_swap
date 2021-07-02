@@ -19,7 +19,7 @@ void	failed_exit(char *exit_mssg)
 	exit(EXIT_FAILURE);
 }
 
-void	set_stack_location(t_list *stack, t_list **sorted)
+static void	set_stack_location(t_list *stack, t_list **sorted)
 {
 	t_list	*reference;
 
@@ -36,7 +36,7 @@ void	set_stack_location(t_list *stack, t_list **sorted)
 	}
 }
 
-void	push_swap(int lst_size, t_list **head, t_info *info)
+static void	push_swap(int lst_size, t_list **head, t_info *info)
 {
 	t_list	*stack_a;
 	t_list	*stack_b;
@@ -65,7 +65,7 @@ void	push_swap(int lst_size, t_list **head, t_info *info)
 	}
 }
 
-void	create_list(t_list **head, int i, int flag, char **argv)
+static void	create_list(t_list **head, int i, int flag, char **argv)
 {
 	int		num;
 	t_list	*tmp;

@@ -6,7 +6,7 @@
 /*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 18:50:55 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/02 00:00:23 by jthompso         ###   ########.fr       */
+/*   Updated: 2021/07/02 15:59:56 by jthompso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_info
 	int		sort_by;
 }				t_info;
 
+int	main(int argc, char **argv);
 void	ft_swap(t_list *lst, char *operation);
 void	ft_rotate(t_list **head, char *operation);
 void	ft_rev_rotate(t_list **head, char *operation);
@@ -53,4 +54,5 @@ int	pivot_to_a(t_list **stack_a, t_list **stack_b, t_list *sorted, int pivot);
 int	pivot_to_b(t_list **stack_a, t_list **stack_b, t_list *sorted);
 void	partition_stack(t_list **stack_a, t_list **stack_b, t_info *info);
 void	failed_exit(char *exit_mssg);
+
 # endif
