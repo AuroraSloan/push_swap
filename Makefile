@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/27 18:46:49 by jthompso          #+#    #+#              #
-#    Updated: 2021/07/02 23:24:37 by jthompso         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME = push_swap
 B_NAME = checker
 LIBS = libft/libft.a
@@ -28,15 +16,17 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INCS = -I includes
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) includes/push_swap.h 
 	make -C libft
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INCS) 
 
-all: $(NAME)
-
-bonus: $(B_OBJS)
+$(B_NAME): $(B_OBJS) includes/checker.h
 	make -C libft
 	$(CC) $(CFLAGS) -o $(B_NAME) $(B_OBJS) $(LIBS) $(INCS)
+
+all: $(NAME)
+
+bonus: $(B_NAME)
 
 clean:
 	rm -rf $(OBJS)

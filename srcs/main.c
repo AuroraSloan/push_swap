@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*  main.c                                               :+:      :+:    :+:  */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 18:43:58 by jthompso          #+#    #+#             */
-/*  Updated: 2021/06/02 16:44:46 by jthompso           ###   ########.fr      */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
@@ -97,6 +85,7 @@ int	main(int argc, char **argv)
 	flag = 0;
 	info.stack_len = NULL;
 	info.part_len = 0;
+	stack_a = NULL;
 	if (argc > 1000)
 		failed_exit("Error");
 	if (argc == 2 && ft_strchr(argv[i], ' '))

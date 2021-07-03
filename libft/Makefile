@@ -14,7 +14,7 @@ OBJS = $(SRCS:.c=.o)
 CC = gcc 
 CFLAGS = -Wall -Werror -Wextra
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) libft.h
 	ar rc $(NAME) $(OBJS)	
 
 all: $(NAME)

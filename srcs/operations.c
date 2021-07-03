@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   operations.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jthompso <jthompso@student.42tokyo.>       +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/01 21:14:59 by jthompso          #+#    #+#             */
-/*   Updated: 2021/07/02 21:43:50 by jthompso         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../libft/libft.h"
 #include "../includes/push_swap.h"
 
@@ -70,8 +58,7 @@ void	ft_rev_rotate(t_list **head, char *operation)
 
 void	ft_push(t_list **src, t_list **dest, char *operation)
 {
-	t_list	*src_stack;
-	t_list	*tmp;
+	t_list	*src_stack;	
 
 	if (!*src)
 		return ;
@@ -86,7 +73,6 @@ void	ft_push(t_list **src, t_list **dest, char *operation)
 		*src = NULL;
 		ft_lstadd_front(dest, src_stack);
 	}
-	tmp = *dest;
 	if (operation)
 		ft_putendl(operation);
 }
