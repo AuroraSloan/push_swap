@@ -4,7 +4,7 @@
 The goal of this program is to create a list of instructions (as short as possible) that will sort a set of numbers given as a string. Only two stacks of memory were allowed to complete this project.
 
 #### ./checker
-The checker program will take the string of numbers and the list of instructions as arguments and will return either OK or KO to signify if the list has been successfully sorted.
+The checker program will take the string of numbers and the list of instructions as arguments and will return either ``OK`` or ``KO`` to signify if the list has been successfully sorted.
 
 ----
 ### Instructions
@@ -43,7 +43,7 @@ Run the push_swap program with a list of integers, and the instruction list will
 ./push_swap 6 3 2 0 9
 ```
 #### checker
-Run the checker program with a list of integers. After pressing enter, the program will wait for instructions. Type the instructions one by one and press enter in between each. OK or KO will be printed based on whether you provided the correct instructions. In order to notify the program that you are finished inputting instruction, type crtl+d.
+Run the checker program with a list of integers. After pressing enter, the program will wait for instructions. Type the instructions one by one and press enter in between each. OK or KO will be printed based on whether you provided the correct instructions. In order to notify the program that you are finished inputting instruction, type ``CTRL+D``.
 ```bash
 ./checker 6 3 2 0 9
 rra
