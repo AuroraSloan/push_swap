@@ -11,7 +11,6 @@ SRCS = srcs/push_swap/main.c srcs/push_swap/push_swap_three.c \
 CHECKER_SRCS = srcs/checker/main.c srcs/checker/free_and_exit.c \
 				srcs/shared/operations.c srcs/shared/mod_both_stacks.c \
 				srcs/shared/list_check.c srcs/shared/create_list.c
-
 OBJS = $(SRCS:.c=.o)
 CHECKER_OBJS = $(CHECKER_SRCS:.c=.o)
 CC = gcc
