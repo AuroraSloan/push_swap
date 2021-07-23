@@ -64,8 +64,6 @@ char	*ft_itoa(int n);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int	get_next_line(int fd, char **line);
 size_t	ft_find_char(const char *s, int c);
-int	err_free1(char *s1);
-int	err_free2(char *s1, char *s2);
 void	ft_free(void *ptr);
 void	ft_putchar(char c);
 void	ft_putendl(char *s);
