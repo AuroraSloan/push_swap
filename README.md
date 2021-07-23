@@ -1,6 +1,7 @@
 # push_swap
 
 The goal of this project was to create the smallest possible list of instructions in order to sort a set of numbers given as a string. Only two stacks of memory were allowed to complete this project.
+
 ----
 ### Instructions
 |    |                                                                                                         |
