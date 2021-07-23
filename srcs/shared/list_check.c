@@ -1,33 +1,16 @@
-#include "../libft/libft.h"
-#include "../includes/push_swap.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
 
-int	lst_sorted(t_list *lst)
+bool	lst_sorted(t_list *lst)
 {
 	int	ret;
 
-	ret = 1;
+	ret = true;
 	while (lst->next)
 	{
 		if (*(int *)lst->content > *(int *)lst->next->content)
 		{
-			ret = 0;
-			break ;
-		}
-		lst = lst->next;
-	}
-	return (ret);
-}
-
-int	lst_rev_sorted(t_list *lst)
-{
-	int	ret;
-
-	ret = 1;
-	while (lst->next)
-	{
-		if (*(int *)lst->content < *(int *)lst->next->content)
-		{
-			ret = 0;
+			ret = false;
 			break ;
 		}
 		lst = lst->next;
@@ -47,7 +30,7 @@ void	duplicate_check(t_list *lst)
 			if (*(int *)lst->content == *(int *)tmp->content)
 			{
 				ft_lstclear(&lst, ft_free);
-				failed_exit("Error");
+				ft_failed_exit("Error", NULL);
 			}
 			tmp = tmp->next;
 		}
@@ -64,7 +47,7 @@ void	overflow_check(int num, char *str, t_list *lst)
 	{
 		ft_free(revert);
 		ft_lstclear(&lst, ft_free);
-		failed_exit("Error");
+		ft_failed_exit("Error", NULL);
 	}
 	ft_free(revert);
 }

@@ -1,5 +1,5 @@
-#include "../libft/libft.h"
-#include "../includes/push_swap.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
 
 static void	push_nxt_to_a(t_list **stack_a, t_list **stack_b, int pivot)
 {

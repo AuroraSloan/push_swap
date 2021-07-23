@@ -11,26 +11,6 @@ static char	**free_err(char **arr, int err_len)
 	return (NULL);
 }
 
-static char	*ft_strldup(char const *s_ptr, int l)
-{
-	char	*dst;
-	int		i;
-
-	if (!s_ptr)
-		return (NULL);
-	dst = (char *)malloc(sizeof(*dst) * l + 1);
-	if (!dst)
-		return (NULL);
-	i = 0;
-	while (i < l)
-	{
-		dst[i] = s_ptr[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
 static int	word_len(char const *s, char c)
 {
 	int	len;
@@ -62,9 +42,9 @@ static int	word_count(char const *s, char c)
 char	**ft_split(char const *s, char c)
 {
 	char	**dst;
-	int		i;
-	int		len;
-	int		j;
+	int	i;
+	int	len;
+	int	j;
 
 	if (!s)
 		return (NULL);

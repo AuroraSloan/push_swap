@@ -1,10 +1,21 @@
-#include "../libft/libft.h"
-#include "../includes/push_swap.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
 
-void	failed_exit(char *exit_mssg)
+bool	lst_rev_sorted(t_list *lst)
 {
-	ft_putendl_fd(exit_mssg, 2);
-	exit(EXIT_FAILURE);
+	int	ret;
+
+	ret = true;
+	while (lst->next)
+	{
+		if (*(int *)lst->content < *(int *)lst->next->content)
+		{
+			ret = false;
+			break ;
+		}
+		lst = lst->next;
+	}
+	return (ret);
 }
 
 static void	set_stack_location(t_list *stack, t_list **sorted)
@@ -53,27 +64,6 @@ static void	push_swap(int lst_size, t_list **head, t_info *info)
 	}
 }
 
-static void	create_list(t_list **head, int i, int flag, char **argv)
-{
-	int		num;
-	t_list	*tmp;
-
-	while (argv[i])
-	{
-		overflow_check(ft_atoi(argv[i]), argv[i], *head);
-		num = ft_atoi(argv[i]);
-		if (flag)
-			ft_free(argv[i]);
-		i++;
-		ft_lstadd_back(head, ft_lstnew(&num, sizeof(int)));
-		tmp = *head;
-		tmp->location = 0;
-	}
-	if (flag)
-		ft_free(argv);
-	duplicate_check(*head);
-}
-
 int	main(int argc, char **argv)
 {
 	int		i;
@@ -87,7 +77,7 @@ int	main(int argc, char **argv)
 	info.part_len = 0;
 	stack_a = NULL;
 	if (argc > 1000)
-		failed_exit("Error");
+		ft_failed_exit("Error", NULL);
 	if (argc == 2 && ft_strchr(argv[i], ' '))
 	{
 		argv = ft_split(argv[1], ' ');

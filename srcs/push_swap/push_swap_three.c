@@ -1,5 +1,6 @@
-#include "../libft/libft.h"
-#include "../includes/push_swap.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
+#include <stdbool.h>
 
 static int	head_is_max(t_list *lst)
 {
@@ -7,15 +8,15 @@ static int	head_is_max(t_list *lst)
 		&& *(int *)lst->content > *(int *)ft_lstlast(lst)->content);
 }
 
-static int	head_is_mid(t_list *lst)
+static bool	head_is_mid(t_list *lst)
 {
 	if (*(int *)lst->content > *(int *)lst->next->content
 		&& *(int *)lst->content < *(int *)ft_lstlast(lst)->content)
-		return (1);
+		return (true);
 	if (*(int *)lst->content < *(int *)lst->next->content
 		&& *(int *)lst->content > *(int *)ft_lstlast(lst)->content)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
 t_list	*push_swap_three(t_list **head)

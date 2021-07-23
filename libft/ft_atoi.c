@@ -2,7 +2,7 @@
 
 int	ft_atoi(const char *str)
 {
-	int				i;
+	int		i;
 	long long int	nbr;
 	long long int	sign;
 
@@ -12,8 +12,10 @@ int	ft_atoi(const char *str)
 	while (ft_isspace(str[i]))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
+	{
 		if (str[i++] == '-')
 			sign = -1;
+	}
 	while (ft_isdigit(str[i]) && str[i])
 	{
 		nbr = nbr * 10 + (str[i++] - '0');

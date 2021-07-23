@@ -1,5 +1,5 @@
-#include "../libft/libft.h"
-#include "../includes/push_swap.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
 
 static void	minimize_rot_instruction(t_list **stack_a, t_list **stack_b)
 {

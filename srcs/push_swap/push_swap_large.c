@@ -1,5 +1,5 @@
-#include "../libft/libft.h"
-#include "../includes/push_swap.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
 
 int	find_pivot(t_list *sorted, int center)
 {

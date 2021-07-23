@@ -1,6 +1,8 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <stdbool.h>
+
 typedef struct s_int_data
 {
 	int	data;
@@ -23,8 +25,8 @@ t_list	*ft_lstpop(t_list **head);
 void	swap_both(t_list **stack_a, t_list **stack_b, char *operation);
 void	rotate_both(t_list **stack_a, t_list **stack_b, char *operation);
 void	rev_rotate_both(t_list **stack_a, t_list **stack_b, char *operation);
-int		lst_sorted(t_list *lst);
-int		lst_rev_sorted(t_list *lst);
+bool	lst_sorted(t_list *lst);
+bool	lst_rev_sorted(t_list *lst);
 void	duplicate_check(t_list *lst);
 void	overflow_check(int num, char *str, t_list *lst);
 t_list	*push_swap_three(t_list **head);
@@ -40,6 +42,6 @@ int		pivot_to_a(t_list **stack_a, t_list **stack_b, t_list *sorted,
 			int pivot);
 int		pivot_to_b(t_list **stack_a, t_list **stack_b, t_list *sorted);
 void	partition_stack(t_list **stack_a, t_list **stack_b, t_info *info);
-void	failed_exit(char *exit_mssg);
+void	create_list(t_list **head, int i, int flag, char **argv);
 
 #endif

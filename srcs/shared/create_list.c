@@ -1,5 +1,5 @@
-#include "../libft/libft.h"
-#include "../includes/checker.h"
+#include "../../libft/libft.h"
+#include "../../includes/checker.h"
 
 void	create_list(t_list **head, int i, int flag, char **argv)
 {

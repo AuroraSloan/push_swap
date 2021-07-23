@@ -2,8 +2,8 @@
 
 char	*ft_itoa(int n)
 {
-	char			*str;
-	int				len;
+	char		*str;
+	int		len;
 	unsigned int	tmp;
 
 	tmp = n;

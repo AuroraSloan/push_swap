@@ -1,5 +1,5 @@
-#include "../libft/libft.h"
-#include "../includes/push_swap.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
 
 void	init_list_min(t_list *stack, t_int_data *int_data)
 {

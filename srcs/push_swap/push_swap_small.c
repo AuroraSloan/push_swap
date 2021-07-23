@@ -1,5 +1,5 @@
-#include "../libft/libft.h"
-#include "../includes/push_swap.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
 
 void	push_min_max(t_list **src, t_list **dest, t_int_data int_data)
 {

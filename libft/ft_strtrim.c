@@ -2,8 +2,8 @@
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
-	int		start;
-	int		end;
+	int	start;
+	int	end;
 	char	*new_str;
 
 	if (!s1 || !set)

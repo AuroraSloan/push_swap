@@ -3,7 +3,7 @@
 char	*ft_strdup(const char *s1)
 {
 	char	*dst;
-	int		i;
+	int	i;
 
 	dst = (char *)malloc(sizeof(*dst) * ft_strlen(s1) + 1);
 	if (!(dst))

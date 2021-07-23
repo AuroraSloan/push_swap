@@ -1,5 +1,5 @@
-#include "../libft/libft.h"
-#include "../includes/checker.h"
+#include "../../libft/libft.h"
+#include "../../includes/push_swap.h"
 
 void	swap_both(t_list **stack_a, t_list **stack_b, char *operation)
 {

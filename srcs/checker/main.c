@@ -1,13 +1,30 @@
-#include "../libft/libft.h"
-#include "../includes/checker.h"
+#include "../../libft/libft.h"
+#include "../../includes/checker.h"
+#include <stdbool.h>
 
-static int	operation_matches(char *operation, char *line)
+static bool	check_for_nl(int flag, char *line, t_list **head)
 {
 	int	ret;
 
-	ret = 0;
+	ret = false;
+	if (flag && line[0] == '\n')
+	{
+		ft_free(line);
+		ft_lstclear(head, ft_free);
+		ft_failed_exit("Error", NULL);
+	}
+	else if (!flag && line[0] == '\n')
+		ret = true;
+	return (ret);
+}
+
+static bool	operation_matches(char *operation, char *line)
+{
+	int	ret;
+
+	ret = false;
 	if (ft_strncmp(operation, line, ft_strlen(line)) == 0)
-		ret = 1;
+		ret = true;
 	return (ret);
 }
 
@@ -78,7 +95,7 @@ int	main(int argc, char **argv)
 	flag = 0;
 	stack_a = NULL;
 	if (argc > 1000)
-		failed_exit("Error");
+		ft_failed_exit("Error", NULL);
 	if (argc == 2 && ft_strchr(argv[i], ' '))
 	{
 		argv = ft_split(argv[1], ' ');
